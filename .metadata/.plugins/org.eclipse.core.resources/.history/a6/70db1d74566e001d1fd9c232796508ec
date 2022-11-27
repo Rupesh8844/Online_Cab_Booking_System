@@ -1,0 +1,23 @@
+package com.cab.model;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class AdminSession {
+
+	@Id
+	@SequenceGenerator(name="adminSession_generator", sequenceName = "adminSession_seq", allocationSize=50)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "adminSession_generator")
+	private Integer sessionId;
+	private Integer adminId;
+	private String uuid;
+	private String userType;
+	private LocalDateTime sessionStartTime;
+	private LocalDateTime sessionEndTime;
+	
+	
+}

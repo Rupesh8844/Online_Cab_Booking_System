@@ -1,0 +1,19 @@
+package com.cab.model;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class MainModel {
+
+	@NotNull(message = "username can't be null")
+	@Pattern(regexp = "^[a-zA-Z0-9]{3,25}", message = "length must be >=3")
+	private String username;
+	
+}
