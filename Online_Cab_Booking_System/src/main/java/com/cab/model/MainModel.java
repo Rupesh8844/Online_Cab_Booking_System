@@ -1,7 +1,6 @@
 package com.cab.model;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -36,8 +35,6 @@ public class MainModel {
 	@Email
 	private String email;
 	
-	
-	@Embedded
 	private Address address;
 	
 }
