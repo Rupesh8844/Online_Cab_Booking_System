@@ -10,8 +10,6 @@ import com.cab.model.Customer;
 
 @Repository
 public interface CustomerDao extends JpaRepository<Customer, Integer>{
-
-	public Optional<Admin> findByUsername(String username) ;
 	
-	Optional<Customer> findByUserMobile(String mobile);
+	public Optional<Customer> findByUserMobile(String mobile);
 }

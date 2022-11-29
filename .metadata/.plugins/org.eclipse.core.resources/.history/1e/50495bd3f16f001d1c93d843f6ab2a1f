@@ -1,0 +1,82 @@
+package com.cab.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.cab.exceptions.DriverException;
+import com.cab.model.Driver;
+import com.cab.repository.DriverDao;
+import com.cab.repository.DriverSessionDao;
+
+public class DriverServicesImpl implements DriverServices{
+
+	@Autowired
+	private DriverDao driverDao;
+	
+	@Autowired
+	private DriverSessionDao driverSessionDao;
+
+	@Override
+	public Driver registerDriver(Driver driver) {
+    
+		Optional<Driver> res = driverDao.findByUserMobile(driver.getUser().getMobile());
+       
+		if(res.isEmpty()) {
+			System.out.println("Driver already exist with this mobile Number");
+
+			throw new DriverException("Driver already exist with this mobile Number");
+		}
+		
+		driver.getCab().setPerKmRate(driver.getCab().getCabType().getPrice());
+		
+		Driver newDriver = driverDao.save(driver);
+		
+		return newDriver;
+		
+		
+		return null;
+	}
+
+	@Override
+	public List<Driver> getAllDriver(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String removeDriver(String name, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Driver updateDriver(Driver driver, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String updateStatus(String newStatus, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Driver> viewBestDriver(String key, float rating) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String logoutDriver(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	
+	
+}

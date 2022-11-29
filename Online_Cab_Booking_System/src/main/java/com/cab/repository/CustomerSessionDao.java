@@ -10,7 +10,7 @@ import com.cab.model.CustomerSession;
 @Repository
 public interface CustomerSessionDao extends JpaRepository<CustomerSession, Integer> {
 
-	public Optional<CustomerSession> findByUserId(Integer userId);
+	public Optional<CustomerSession> findBycustomerId(Integer userId);
 	
 	public Optional<CustomerSession> findByUuid(String  uuid);
 

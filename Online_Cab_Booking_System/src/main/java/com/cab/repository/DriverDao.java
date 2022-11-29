@@ -18,7 +18,7 @@ public interface DriverDao extends JpaRepository<Driver, Integer>{
 		public List<Driver> findByCabAvailable(String bool);
 		
 //		@Query("select * from Driver b  where b.rating>4.5")
-		public List<Driver>findByRatingGreaterThan(float r);
+		public List<Driver> findByRatingGreaterThan(float r);
 		
 		
 }

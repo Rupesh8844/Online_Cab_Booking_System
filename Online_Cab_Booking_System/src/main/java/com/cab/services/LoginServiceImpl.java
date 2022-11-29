@@ -100,7 +100,7 @@ public class LoginServiceImpl implements LoginService{
 		}
 		
 		Customer existingCustomer = res.get();
-		Optional<CustomerSession> opt = customerSessionDao.findByUserId(existingCustomer.getCustomerId());
+		Optional<CustomerSession> opt = customerSessionDao.findBycustomerId(existingCustomer.getCustomerId());
 		
 		
 		if(opt.isPresent()) {
