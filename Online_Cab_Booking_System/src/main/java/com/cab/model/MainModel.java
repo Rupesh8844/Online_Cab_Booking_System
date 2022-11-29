@@ -35,6 +35,6 @@ public class MainModel {
 	@Email
 	private String email;
 	
-	private Address address;
+	private String address;
 	
 }
