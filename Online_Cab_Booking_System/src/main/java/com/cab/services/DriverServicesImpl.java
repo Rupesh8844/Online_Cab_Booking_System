@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cab.exceptions.DriverException;
 import com.cab.exceptions.LoginException;
@@ -12,6 +13,7 @@ import com.cab.model.DriverSession;
 import com.cab.repository.DriverDao;
 import com.cab.repository.DriverSessionDao;
 
+@Service
 public class DriverServicesImpl implements DriverServices{
 
 	@Autowired

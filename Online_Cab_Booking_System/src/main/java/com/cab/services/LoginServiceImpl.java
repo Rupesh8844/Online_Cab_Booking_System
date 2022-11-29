@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cab.DTO.LoginDTO;
 import com.cab.exceptions.CustomerException;
@@ -23,6 +24,8 @@ import com.cab.repository.CustomerSessionDao;
 import com.cab.repository.DriverDao;
 import com.cab.repository.DriverSessionDao;
 
+
+@Service
 public class LoginServiceImpl implements LoginService{
 
 	@Autowired
