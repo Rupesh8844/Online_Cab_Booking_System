@@ -9,7 +9,7 @@ public interface LoginService {
 
 	public AdminSession loginAdmin(LoginDTO dto);
 
-	public CustomerSession loginCustomer(LoginDTO customer);
+	public CustomerSession loginCustomer(LoginDTO dto);
 	
 	public DriverSession loginDriver(LoginDTO dto);
 	
