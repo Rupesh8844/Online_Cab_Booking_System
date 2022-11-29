@@ -1,0 +1,11 @@
+package com.cab.services;
+
+public interface LoginService {
+
+	public AdminSession loginAdmin(LoginDTO dto);
+
+	public UserSession loginCustomer(LoginDTO customer);
+	
+	public DriverSession loginDriver(LoginDTO dto);
+	
+}
