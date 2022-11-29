@@ -1,0 +1,5 @@
+package com.cab.repository;
+
+public interface AdminSessionDao {
+
+}
