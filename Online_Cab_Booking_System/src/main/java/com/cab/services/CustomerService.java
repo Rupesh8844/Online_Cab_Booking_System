@@ -12,15 +12,15 @@ import com.cab.model.TripBooking;
 
 public interface CustomerService {
 
-public Customer register(Customer user) throws CustomerException;
+public Customer register(Customer user) ;
 	
 	public List<Customer> getCustomer();
     
-	public Customer updatePassword(CustomerDTO dto, String key) throws CustomerException; 
+	public Customer updatePassword(CustomerDTO dto, String key) ; 
 	
-	public String deleteCustomer(CustomerDTO dto, String key) throws CustomerException;
+	public String deleteCustomer(CustomerDTO dto, String key) ;
 	
-	public Customer updateCustomer(Customer customer,String mobile, String key) throws CustomerException;
+	public Customer updateCustomer(Customer customer,String mobile, String key) ;
 	
 	public List<Driver> getAvailableDrivers();
 	
@@ -28,7 +28,7 @@ public Customer register(Customer user) throws CustomerException;
 	
 	public TripBooking bookTrip(TripBooking trip, String key  );  
 	
-	public String cancelTrip(String key, Integer tripId) throws TripException;
+	public String cancelTrip(String key, Integer tripId) ;
 	
 	public String logoutCustomer(String key);
 	

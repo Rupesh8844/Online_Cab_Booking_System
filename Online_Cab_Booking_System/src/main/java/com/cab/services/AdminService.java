@@ -12,7 +12,7 @@ import com.cab.model.Driver;
 
 public interface AdminService {
 
-	public Admin adminRegister(Admin admin) throws AdminException;
+	public Admin adminRegister(Admin admin) ;
 
 	public Admin updatePassword(AdminDTO dto, String username, String key);
 
@@ -20,7 +20,7 @@ public interface AdminService {
 
 	public String deleteByUsername(AdminDTO dto, String key);
 
-	public String logoutAdmin(String key) throws LoginException;
+	public String logoutAdmin(String key) ;
 	
 	public List<CompletedTrips> getTripsByCustomerId(Integer customerId, String key);
 	

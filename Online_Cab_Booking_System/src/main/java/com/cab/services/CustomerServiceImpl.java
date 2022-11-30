@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService{
 	CompletedTripsDao completedTripsDao;
 
 	@Override
-	public Customer register(Customer user) throws CustomerException {
+	public Customer register(Customer user) {
 
 		Optional<Customer> existingCustomer = customerDao.findByUserMobile(user.getUser().getMobile());
 		
@@ -78,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	
 	@Override
-	public Customer updatePassword(CustomerDTO dto, String key) throws CustomerException {
+	public Customer updatePassword(CustomerDTO dto, String key) {
 		
 		Optional<CustomerSession> res = customerSessionDao.findByUuid(key);
 		Customer updated = null;
@@ -113,7 +113,7 @@ public class CustomerServiceImpl implements CustomerService{
 	
 
 	@Override
-	public String deleteCustomer(CustomerDTO dto, String key) throws CustomerException {
+	public String deleteCustomer(CustomerDTO dto, String key)  {
 		
 		Optional<CustomerSession> res = customerSessionDao.findByUuid(key);
 		
@@ -137,7 +137,7 @@ public class CustomerServiceImpl implements CustomerService{
 	
 
 	@Override
-	public Customer updateCustomer(Customer customer, String mobile, String key) throws CustomerException {
+	public Customer updateCustomer(Customer customer, String mobile, String key)  {
 		
 		Optional<CustomerSession> res = customerSessionDao.findByUuid(key);
 		
@@ -242,7 +242,7 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	
 	@Override
-	public String cancelTrip(String key, Integer tripId) throws TripException {
+	public String cancelTrip(String key, Integer tripId) {
 		
 		Optional<CustomerSession> res = customerSessionDao.findByUuid(key);
 		

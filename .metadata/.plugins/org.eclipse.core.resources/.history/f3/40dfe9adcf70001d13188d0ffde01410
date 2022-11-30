@@ -1,0 +1,229 @@
+package com.cab.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cab.DTO.AdminDTO;
+import com.cab.exceptions.AdminException;
+import com.cab.exceptions.CustomerException;
+import com.cab.exceptions.DriverException;
+import com.cab.exceptions.LoginException;
+import com.cab.exceptions.UsernameNotFoundException;
+import com.cab.model.Admin;
+import com.cab.model.AdminSession;
+import com.cab.model.CompletedTrips;
+import com.cab.model.Customer;
+import com.cab.model.Driver;
+import com.cab.repository.AdminDao;
+import com.cab.repository.AdminSessionDao;
+import com.cab.repository.CompletedTripsDao;
+import com.cab.repository.CustomerDao;
+import com.cab.repository.DriverDao;
+
+@Service
+public class AdminServiceImpl  implements AdminService {
+
+	@Autowired
+	AdminDao adminDao;
+
+	@Autowired
+	AdminSessionDao adminSessionDao;
+
+	@Autowired
+	CompletedTripsDao completedTripsDao;
+
+	@Autowired
+	DriverDao driverDao;
+
+	@Autowired
+	CustomerDao customerDao;
+
+	@Override
+	public Admin adminRegister(Admin admin) throws AdminException {
+		
+		Optional<Admin> oldAdmin = adminDao.findByAdminMobile(admin.getAdmin().getMobile());
+		
+		if(oldAdmin.isPresent()) {
+			throw new AdminException("Admin with  mobile number "+admin.getAdmin().getMobile()+" is already registerd...");
+		}
+		
+		return adminDao.save(admin);
+		
+	}
+
+	
+	
+	
+	@Override
+	public Admin updatePassword(AdminDTO dto, String username, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	
+
+	@Override
+	public Admin update(Admin admin, String Username, String key) {
+		
+		Admin updated = null;
+		
+		Optional<AdminSession> res  = adminSessionDao.findByUuid(key);
+		
+		if(res.isEmpty()) {
+			throw new LoginException("Admin is not logged in, Please login first!");
+		}else {
+			Optional<Admin> opt = adminDao.findByAdminUsername(res.getUsername());
+			
+			if(opt.isEmpty()) {
+				throw new UsernameNotFoundException("Username not found.Please provide proper username");
+			}else {
+				Admin toUpdate = opt.get();
+				Integer id = toUpdate.getAdminId();
+				Admin newAdmin= new Admin(id, admin.getAdmin());
+				updated = adminDao.save(newAdmin);
+			}
+		}
+		return updated;
+		
+		
+	}
+
+	
+	
+	
+	
+	@Override
+	public String deleteByUsername(AdminDTO dto, String key) {
+		
+		Optional<AdminSession> res  = adminSessionDao.findByUuid(key);
+		
+		if(res.isEmpty()) {
+			throw new LoginException("Admin is not logged in, Please login first!");
+		}else {
+			Optional<Admin> admin = adminDao.findByAdminUsername(dto.getUsername());
+			
+			if(admin.isEmpty()) {
+				throw new UsernameNotFoundException("Username not found.Please provide proper username");
+			}
+			
+			adminDao.delete(admin.get());
+		}
+		return "Admin with Username " + dto.getUsername() + " is Deleted Successfully...";
+	}
+
+	
+	
+	
+	
+	@Override
+	public String logoutAdmin(String key) throws LoginException {
+		
+		Optional<AdminSession> res  = adminSessionDao.findByUuid(key);
+		
+		if(res.isEmpty()) {
+			throw new LoginException("Admin is not logged in, Please login first!");
+		}
+		
+		adminSessionDao.delete(res.get());
+		return "Admin has succefully logged out.";
+		
+	}
+
+	
+	
+	
+	
+	@Override
+	public List<CompletedTrips> getTripsByCustomerId(Integer customerId, String key) {
+		
+		Optional<AdminSession> res  = adminSessionDao.findByUuid(key);
+		
+		if(res.isEmpty()) {
+			throw new LoginException("Admin is not logged in, Please login first!");
+		}
+		
+		List<CompletedTrips> list = completedTripsDao.findByCustomerId(customerId);
+		
+		if(list.isEmpty()) {
+			throw new CustomerException("No trips Found by this Customer id " + customerId);
+		}
+		
+		return list;
+		
+	}
+
+	
+	
+	
+	
+	@Override
+	public List<CompletedTrips> getAllTrips(String key) {
+		
+		Optional<AdminSession> res  = adminSessionDao.findByUuid(key);
+		
+		if(res.isEmpty()) {
+			throw new LoginException("Admin is not logged in, Please login first!");
+		}
+		
+		List<CompletedTrips> list = completedTripsDao.findAll();
+		
+		if(list.isEmpty()) {
+			throw new CustomerException("No trips Found Currently.");
+		}
+		return list;
+		
+	}
+
+	
+	
+	
+	
+	@Override
+	public List<Driver> getListOfDrivers(String key) {
+
+		Optional<AdminSession> res  = adminSessionDao.findByUuid(key);
+		
+		if(res.isEmpty()) {
+			throw new LoginException("Admin is not logged in, Please login first!");
+		}
+		
+		List<Driver> list = driverDao.findAll();
+		
+		if(list.isEmpty()) {
+			throw new DriverException("There are no Drivers present in the Database");
+		}
+		
+		return list;
+		
+	}
+
+	
+	
+	
+	
+	@Override
+	public List<Customer> getListOfCustomers(String key) {
+		
+		Optional<AdminSession> res  = adminSessionDao.findByUuid(key);
+		
+		if(res.isEmpty()) {
+			throw new LoginException("Admin is not logged in, Please login first!");
+		}
+		
+		List<Customer> list = customerDao.findAll();
+		
+		if(list.isEmpty()) {
+			throw new CustomerException("There are no Customers present in the Database");
+		}
+		return list;
+	}
+	
+	
+	
+	
+}
