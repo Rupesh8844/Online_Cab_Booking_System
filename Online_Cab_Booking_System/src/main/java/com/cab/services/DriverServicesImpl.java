@@ -159,8 +159,7 @@ public class DriverServicesImpl implements DriverServices{
 			
 				System.out.println("No driver present with the name: "+ name);
 				
-				throw new DriverException("No driver present with the name: "+ name);
-			
+				throw new DriverException("No driver present with the name: "+ name);	
 		}
 		
 		driverDao.delete(opt.get());
@@ -171,29 +170,19 @@ public class DriverServicesImpl implements DriverServices{
 	
 	
 	
-	
 	@Override
 	public String logoutDriver(String key) {
 
-
 		Optional<DriverSession> res =driverSessionDao.findByUuid(key);
-		
 		
 		if (res.isEmpty()) {
 			throw new LoginException("Driver is not loged in ,Please log in first");
-
 		}else {
-
 			driverSessionDao.delete(res.get());
 		}
 
 		return "Driver has succefully logged out.";
-		
-		
 	}
-	
-	
-	
 	
 	
 }

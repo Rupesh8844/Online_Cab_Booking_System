@@ -24,11 +24,16 @@
     <fullyQualifiedTypeName name="java.time.LocalDate"/>
     <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
     <fullyQualifiedTypeName name="com.cab.repository.DriverSessionDao"/>
-    <fullyQualifiedTypeName name="com.cab.exceptions.CustomerException"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
-    <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="com.cab.model.Driver"/>
     <fullyQualifiedTypeName name="com.cab.exceptions.LoginException"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="com.cab.services.CustomerService"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="com.cab.exceptions.CustomerException"/>
+    <fullyQualifiedTypeName name="com.cab.model.Customer"/>
+    <fullyQualifiedTypeName name="com.cab.exceptions.DriverException"/>
+    <fullyQualifiedTypeName name="org.springframework.objenesis.instantiator.basic.NewInstanceInstantiator"/>
+    <fullyQualifiedTypeName name="com.cab.model.CompletedTrips"/>
+    <fullyQualifiedTypeName name="com.cab.model.TripStatus"/>
 </qualifiedTypeNameHistroy>

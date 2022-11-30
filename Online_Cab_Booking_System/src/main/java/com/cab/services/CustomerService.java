@@ -16,7 +16,7 @@ public Customer register(Customer user) throws CustomerException;
 	
 	public List<Customer> getCustomer();
     
-	public Customer updatePassword(CustomerDTO dto, String mobile, String key) throws CustomerException; 
+	public Customer updatePassword(CustomerDTO dto, String key) throws CustomerException; 
 	
 	public String deleteCustomer(CustomerDTO dto, String key) throws CustomerException;
 	

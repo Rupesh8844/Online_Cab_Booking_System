@@ -1,0 +1,253 @@
+package com.cab.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.cab.DTO.CustomerDTO;
+import com.cab.exceptions.CustomerException;
+import com.cab.exceptions.DriverException;
+import com.cab.exceptions.TripException;
+import com.cab.model.CompletedTrips;
+import com.cab.model.Customer;
+import com.cab.model.CustomerSession;
+import com.cab.model.Driver;
+import com.cab.model.MainModel;
+import com.cab.model.TripBooking;
+import com.cab.repository.CompletedTripsDao;
+import com.cab.repository.CustomerDao;
+import com.cab.repository.CustomerSessionDao;
+import com.cab.repository.DriverDao;
+import com.cab.repository.TripBookingDao;
+
+@Service
+public class CustomerServiceImpl implements CustomerService{
+
+	@Autowired
+	CustomerDao customerDao;
+
+	@Autowired
+	CustomerSessionDao customerSessionDao;
+
+	@Autowired
+	DriverDao driverDao;
+
+	@Autowired
+	TripBookingDao tripBookingDao;
+
+	@Autowired
+	CompletedTripsDao completedTripsDao;
+
+	@Override
+	public Customer register(Customer user) throws CustomerException {
+
+		Optional<Customer> existingCustomer = customerDao.findByUserMobile(user.getUser().getMobile());
+		
+		if(existingCustomer.isPresent()) {
+			System.out.println("Customer is already present");
+			throw new CustomerException("A Customer already exist with this mobile number:- "+user.getUser().getMobile());
+		}
+	
+		return customerDao.save(user);
+		
+	}
+	
+	
+	
+
+	@Override
+	public List<Customer> getCustomer() {
+		
+		List<Customer> list = customerDao.findAll();
+		
+		if(list.isEmpty()) {
+			throw new CustomerException("No customer present in the database...");
+		}
+		
+		return list;
+	}
+
+	
+	
+	
+	
+	@Override
+	public Customer updatePassword(CustomerDTO dto, String key) throws CustomerException {
+		
+		Optional<CustomerSession> res = customerSessionDao.findByUuid(key);
+		Customer updated = null;
+		
+		
+		if(res.isEmpty()) {
+			throw new CustomerException("User is not logged in, Please login first!");
+		}else {
+			
+			Optional<Customer> opt = customerDao.findByUserMobile(dto.getMobile());
+			
+			if(opt.isEmpty()) {
+				throw new CustomerException("Customer not found with mobile number:- "+dto.getMobile());
+			}else {
+				Customer toUpdate = opt.get();
+				Integer customerID = toUpdate.getCustomerId();
+				MainModel customer = toUpdate.getUser();
+				customer.setPassword(dto.getPassword());
+				Customer updatedCustomer = new Customer(customerID, customer);
+				updated = customerDao.save(updatedCustomer);
+			}
+			
+			return updated;
+			
+		}
+	
+		
+	}
+	
+	
+	
+	
+
+	@Override
+	public String deleteCustomer(CustomerDTO dto, String key) throws CustomerException {
+		
+		Optional<CustomerSession> res = customerSessionDao.findByUuid(key);
+		
+		if(res.isEmpty()) {
+			throw new CustomerException("User is not logged in, Please login first!");
+		}else {
+		
+			Optional<Customer> opt = customerDao.findByUserMobile(dto.getMobile());
+			if (opt.isEmpty())
+				throw new CustomerException("Username not found");
+			else {
+				Customer cus=opt.get();
+				customerDao.delete(cus);
+			}
+		}
+			
+		return "customer with mobile number:- "+dto.getMobile()+"is deleted successfully";
+	}
+	
+	
+	
+
+	@Override
+	public Customer updateCustomer(Customer customer, String mobile, String key) throws CustomerException {
+		
+		Optional<CustomerSession> res = customerSessionDao.findByUuid(key);
+		
+		Customer updated = null;
+		
+		if (res.isEmpty()) {
+			throw new CustomerException("User is not logged in, Please login first!");
+		}else {
+			Optional<Customer> opt = customerDao.findByUserMobile(mobile);
+			
+			if (opt.isEmpty()) {
+				throw new CustomerException("Username not found");
+			}else {
+				Customer toUpdate = opt.get();
+				Integer id = toUpdate.getCustomerId();
+				Customer newOne = new Customer(id,customer.getUser());
+				updated = customerDao.save(newOne);
+			}
+			
+		}
+		
+		return updated;
+	}
+
+	
+	
+	
+	@Override
+	public List<Driver> getAvailableDrivers() {
+		
+		List<Driver> listOfAvailableDrivers = driverDao.findByCabAvailable("Yes");
+	    
+		if(listOfAvailableDrivers == null) {
+			throw new DriverException("No drivers are available");
+		}
+		
+		return listOfAvailableDrivers;
+		
+	}
+	
+	
+	
+
+	@Override
+	public List<Driver> generalListOfDrivers() {
+		List<Driver> listOfDrivers = driverDao.findAll();
+		
+		if(listOfDrivers == null) {
+			throw new DriverException("No drivers are available");
+		}
+		
+		return listOfDrivers;
+	}
+
+	
+	
+	
+	@Override
+	public TripBooking bookTrip(TripBooking trip, String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String cancelTrip(String key, Integer tripId) throws TripException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+	@Override
+	public String logoutCustomer(String key) {
+		
+		Optional<CustomerSession> res = customerSessionDao.findByUuid(key);
+		
+		if (res.isEmpty()) {
+			throw new CustomerException("customer is not logged in, Please login first!");
+		}else {
+
+			customerSessionDao.delete(res.get());
+		}
+
+		return "Customer has successfully logged out...";
+		
+	}
+
+	
+	
+	@Override
+	public String completeTrip(String key, Integer tripId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CompletedTrips> alltripHistory(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TripBooking updateTrip(TripBooking trip, String key) {
+
+
+		Optional<CustomerSession> res = customerSessionDao.findByUuid(key);
+		
+		if (res.isEmpty()) {
+			throw new CustomerException("customer is not logged in, Please login first!");
+		}else {
+
+			TripBooking updatedTrip = tripBookingDao.save(trip);
+		}
+		
+	}
+	
+}
