@@ -1,0 +1,42 @@
+package com.cab.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cab.model.Customer;
+import com.cab.services.CustomerService;
+import com.cab.services.LoginService;
+
+@RestController
+@RequestMapping("/customer")
+public class CustomerController {
+
+	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
+	private LoginService loginService;
+	
+	
+	
+	@PostMapping("/register")
+	public Customer registerCustomerHandler(@RequestBody Customer user) {
+		
+		return customerService.register(user);
+
+	}
+	
+	
+	
+	@PostMapping("/login")
+	public ResponseEntity<UserSession> loginCustomer(@RequestBody LoginDTO customerdto) {
+		return new ResponseEntity<>(loginService.loginCustomer(customerdto), HttpStatus.ACCEPTED);
+	}
+	
+	
+	
+	
+}
