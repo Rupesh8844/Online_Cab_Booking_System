@@ -1,0 +1,18 @@
+package com.cab.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cab.services.AdminService;
+import com.cab.services.LoginService;
+
+@RestController
+public class AdminController {
+
+	@Autowired
+	private AdminService adminService;
+	
+	@Autowired
+	private LoginService loginService;
+	
+}

@@ -1,0 +1,31 @@
+package com.cab.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cab.DTO.LoginDTO;
+import com.cab.model.AdminSession;
+import com.cab.services.AdminService;
+import com.cab.services.LoginService;
+
+@RestController
+public class AdminController {
+
+	@Autowired
+	private AdminService adminService;
+	
+	@Autowired
+	private LoginService loginService;
+	
+	public ResponseEntity<AdminSession> loginAdmin(@RequestBody LoginDTO dto){
+		AdminSession admin = loginService.loginAdmin(dto);
+		
+		return new ResponseEntity<AdminSession>(admin, HttpStatus.ACCEPTED);
+		
+	}
+	
+	
+}

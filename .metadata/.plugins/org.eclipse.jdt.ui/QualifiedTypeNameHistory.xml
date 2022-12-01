@@ -11,12 +11,10 @@
     <fullyQualifiedTypeName name="javax.persistence.Entity"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
-    <fullyQualifiedTypeName name="com.cab.exceptions.AdminException"/>
     <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
     <fullyQualifiedTypeName name="javax.persistence.RollbackException"/>
     <fullyQualifiedTypeName name="javax.validation.ConstraintViolationException"/>
     <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="com.cab.model.Admin"/>
     <fullyQualifiedTypeName name="com.cab.repository.AdminSessionDao"/>
     <fullyQualifiedTypeName name="com.cab.model.AdminSession"/>
     <fullyQualifiedTypeName name="java.util.UUID"/>
@@ -36,4 +34,6 @@
     <fullyQualifiedTypeName name="org.springframework.objenesis.instantiator.basic.NewInstanceInstantiator"/>
     <fullyQualifiedTypeName name="com.cab.model.CompletedTrips"/>
     <fullyQualifiedTypeName name="com.cab.model.TripStatus"/>
+    <fullyQualifiedTypeName name="com.cab.exceptions.AdminException"/>
+    <fullyQualifiedTypeName name="com.cab.model.Admin"/>
 </qualifiedTypeNameHistroy>
