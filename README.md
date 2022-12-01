@@ -38,6 +38,7 @@
 * Before running the API server, you should update the database config inside the [application.properties](Online_Cab_Booking_System/src/main/resources/application.properties) file.
 * Update the port number, username and password as per your local database config.
 
+
 ```
  server.port=8888
 
