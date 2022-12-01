@@ -98,3 +98,4 @@ spring.datasource.password=root
 * `GET /driver/bestdriver` : Gets the best driver whose rating is over 4.5
 * `PUT /driver/update` : Updates the driver details
 
+
