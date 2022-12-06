@@ -99,7 +99,28 @@ spring.datasource.password=root
 * `PUT /driver/update` : Updates the driver details
 
 
+### Sample API Response for Customer Login
 
+`POST   localhost:8888/login/customer`
 
+* Request Body
 
+```
+    {
+        "mobileId": "8757000065",
+        "password": "rupesh@123"
+    }
+```
 
+* Response
+
+```
+    {
+        "sessionId": 1,
+        "token": "0ad57094",
+        "userId": 1,
+        "userType": "customer",
+        "sessionStartTime": "2022-06-10T10:48:20.0109626",
+        "sessionEndTime": "2022-06-10T11:48:20.0109626"
+    }
+```
